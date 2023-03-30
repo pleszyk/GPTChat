@@ -63,6 +63,7 @@ function App() {
         setMic(false);
       };
       recognition.onend = () => setMic(false);
+      recognition.onspeechend = () => recognition.stop()
     }
   }
 
@@ -86,6 +87,8 @@ function App() {
     //TTS
     if (speaking) {
       let speak = new SpeechSynthesisUtterance();
+      let voices = speechSynthesis.getVoices()
+      speak.voice = voices[0]
       speak.text = data.message;
       speechSynthesis.speak(speak);
     }
